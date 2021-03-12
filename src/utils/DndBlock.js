@@ -6,20 +6,19 @@ import "./styles.css";
 import { RiDragDropFill } from "react-icons/ri";
 
 const DndBlock = (props) => {
-//   const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(false);
   const editor = useEditor();
   const { element } = props;
   const ref = useRef(null);
 
-
-    // const toggleHover = () => {
-    //     if(hover){
-    //         setHover(false);
-    //     }
-    //     else{
-    //         setHover(true)
-    //     }
-    // }
+  const toggleHover = () => {
+        if(hover){
+            setHover(false);
+        }
+        else{
+            setHover(true)
+        }
+    }
 
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: "element", element },
@@ -65,14 +64,23 @@ const DndBlock = (props) => {
   drag(drop(ref));
 
   return (
-    <div ref={preview} style={{ opacity }}>
+    <div
+      ref={preview}
+      style={{ opacity }}
+      onMouseEnter={toggleHover}
+      onMouseLeave={toggleHover}
+    >
+      {hover ? (
         <div
-          style={{display: "inline-block"}}
+          style={{ display: "inline-block" }}
           ref={ref}
           data-handler-id={handlerId}
         >
           <RiDragDropFill />
         </div>
+      ) : (
+        ""
+      )}
       {props.children}
     </div>
   );
