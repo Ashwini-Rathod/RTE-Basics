@@ -19,6 +19,8 @@ import Checkbox from "./components/checkbox";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import DndBlock from "./utils/DndBlock";
+import Button from "./components/Button";
+// import { RiDragDropFill } from "react-icons/ri";
 
 const initialValue = [
   {
@@ -58,42 +60,53 @@ const initialValue = [
   {
     type: 'image',
     url: 'https://source.unsplash.com/kFrdX5IeQzI',
-    children: [{ text: '' }],
+    children: [{ text: 'Hey there!!' }],
   },
   {
     id: '1',
-    index: '0',
+    index: '5',
     type: 'checkbox',
     children: [{text: 'First Checkbox'}]
   },
   {
     id: '2',
-    index: '1',
+    index: '6',
     type: 'checkbox',
     children: [{text: 'Second Checkbox'}]
   },
   {
     id: '3',
-    index: '2',
+    index: '7',
     type: 'checkbox',
     children: [{text: 'Third Checkbox'}]
   },
   {
     id: '4',
-    index: '3',
+    index: '8',
     type: 'checkbox',
     children: [{text: 'Fourth Checkbox'}]
   }
 ]
 
 function App() {
+  // const [hover, setHover] = useState(false);
+
+  // const toggleHover = () => {
+  //   if(hover === false){
+  //       setHover(true);
+  //   }
+  //   else{
+  //       setHover(false);
+  //   }
+  // };
+
   const editor = useMemo(()=> withImages(withLinks( withReact(createEditor()))), []);
   const [value, setValue] = useState(initialValue);
 
   const renderElement = useCallback( props => {
     switch (props.element.type) {
       case 'code':
-        return <CodeElement {...props}  />
+        return <CodeElement {...props}/>
       case 'header1':
         return <H1Element {...props}/>
       case 'header2':
@@ -101,7 +114,7 @@ function App() {
       case 'blockQuote':
         return <BlockQuoteElement {...props}/>
       case 'ul':
-        return <UL {...props}/>
+        return  <UL {...props}/>
       case "ol":
         return <OL {...props}/>
       case 'jumbotron':
@@ -111,15 +124,16 @@ function App() {
       case 'image':
         return <Image {...props}/>
       case 'video':
-        return <Video {...props}/>
+        return  <Video {...props}/>
       case 'link':
         return <Link {...props}/>
       case 'checkbox':
         return <Checkbox {...props}/>
       default:
-        return <DefaultElement {...props} />
+        return <DefaultElement {...props}/>
     }
   }, []);
+
 
   const renderLeaf = useCallback(props => {
     return <Leaf {...props}/>
@@ -132,155 +146,33 @@ function App() {
     onChange={newValue => setValue(newValue)}
   >
     <div>
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleBoldMark(editor)
-          }}
-        >
-          B
-        </button>
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleCodeBlock(editor)
-          }}
-        >
-          C
-        </button>
-
-             <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleHeader1Block(editor)
-          }}
-        >
-          H1
-        </button>
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleHeader2Block(editor)
-          }}
-        >
-          H2
-        </button>
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleBlockQuoteBlock(editor)
-          }}
-        >
-          Q
-        </button>
-
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleULBlock(editor)
-          }}
-        >
-          UL
-        </button>
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleOLBlock(editor)
-          }}
-        >
-          OL
-        </button>
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleJumbotronBlock(editor)
-          }}
-        >
-          J
-        </button>
-
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleItalicBlock(editor)
-          }}
-        >
-          It
-        </button>
-        <button
-          onMouseDown={event => {
-            event.preventDefault()
-            CustomEditor.toggleUnderlineBlock(editor)
-          }}
-        >
-          U
-        </button>
-        <button
-          onMouseDown ={event => {
-            event.preventDefault()
-            CustomEditor.removeNode(editor);
-          }}
-        >
-          D
-        </button>
-        <button
-          onMouseDown = {event => {
-            event.preventDefault()
-            CustomEditor.toggleCheckBox(editor);
-          }}
-        >
-          Ch
-        </button>
-        <button
-          onMouseDown = {event => {
-            event.preventDefault()
-            const url = window.prompt("Enter the image URL: ");
-            if(!url){
-              return
-            }
-            insertImage(editor, url);
-          }}
-        >I</button>
-          <button
-          onMouseDown = {event => {
-            event.preventDefault()
-            const url = window.prompt("Enter the video embed URL: ");
-            if(!url){
-              return
-            }
-            insertVideo(editor, url);
-          }}
-        >V</button>
-         <button
-          onMouseDown = {event => {
-            event.preventDefault()
-            const url = window.prompt("Enter the url: ");
-            console.log("URL: ", url);
-            if(!url){
-              return
-            }
-            insertLink(editor, url);
-          }}
-        >L</button>
+        <Button text={"B"} toggleBlock={CustomEditor.toggleBoldMark}/>
+        <Button text={"C"} toggleBlock={CustomEditor.toggleCodeBlock}/>
+        <Button text={"H1"} toggleBlock={CustomEditor.toggleHeader1Block}/>
+        <Button text={"H2"} toggleBlock={CustomEditor.toggleHeader2Block}/>
+        <Button text={"Q"} toggleBlock={CustomEditor.toggleBlockQuoteBlock}/>
+        <Button text={"UL"} toggleBlock={CustomEditor.toggleULBlock}/>
+        <Button text={"OL"} toggleBlock={CustomEditor.toggleOLBlock}/>
+        <Button text={"J"} toggleBlock={CustomEditor.toggleJumbotronBlock}/>
+        <Button text={"It"} toggleBlock={CustomEditor.toggleItalicBlock}/>
+        <Button text={"U"} toggleBlock={CustomEditor.toggleUnderlineBlock}/>
+        <Button text={"D"} toggleBlock={CustomEditor.removeNode}/>
+        <Button text={"Ch"} toggleBlock={CustomEditor.toggleCheckBox}/>
+        <Button text={"I"} toggleBlock={insertImage} type={"image"}/>
+        <Button text={"V"} toggleBlock={insertImage} type={"video"}/>
+        <Button text={"L"} toggleBlock={insertImage} type={"link"}/>
       </div>
       
     <DndProvider backend={HTML5Backend}>
-    {/* <DndBlock> */}
       <Editable  
-        renderElement= {(props)=> (<DndBlock {...props}>{renderElement(props)}</DndBlock>)}
+        renderElement= {(props) => (<DndBlock {...props}>{renderElement(props)}</DndBlock>)}
+        // renderElement={renderElement}
         renderLeaf ={renderLeaf}
       />
-    {/* </DndBlock> */}
     </DndProvider>
   </Slate>
   )
 }
-
 
 export const insertImage = (editor, url) => {
   const text = { text: '' }

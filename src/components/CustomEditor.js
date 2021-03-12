@@ -127,7 +127,7 @@ export const CustomEditor = {
     },
 
     toggleBoldMark(editor) {
-      const {selection} = editor;
+      // const {selection} = editor;
       const isActive = CustomEditor.isBoldMarkActive(editor)
       if(isActive){
         Editor.removeMark(editor, 'bold');
@@ -146,9 +146,9 @@ export const CustomEditor = {
         // console.log(selection.anchor.path);
         // let des = Node.descendant(editor, [])
         // console.log(des);
-        console.log(selection);
-        let test = Editor.parent(editor, selection);
-        console.log(test)
+        // console.log(selection);
+        // let test = Editor.parent(editor, selection);
+        // console.log(test)
       }
     },
 
